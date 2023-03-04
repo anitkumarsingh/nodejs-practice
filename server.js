@@ -18,8 +18,16 @@ const friends =[
 ]
 const server = http.createServer((req, res) => {
 	 const items = req.url.split('/');
-   console.log(items)
-	if (items[1] == 'friends') {
+
+  if(req.method === 'POST' && items[1] === 'friends'){
+    req.on('data',(data)=>{
+      const bodyData = data.toString();
+      friends.push(JSON.parse(bodyData))
+    });
+    req.pipe(res);
+    
+  }
+	if (req.method==='GET' && items[1] == 'friends') {  
     const findFriendIndex = +items[2];
     console.log(findFriendIndex)
     if(items.length === 3){
@@ -42,7 +50,7 @@ const server = http.createServer((req, res) => {
      
     }
   }
-    else if (items[1] === '/message') {
+    else if ( req.method==='GET' && items[1] === '/message') {
       res.statusCode = 200;
       res.setHeader('Content-Type', 'text/html');
       res.write('<html>');
