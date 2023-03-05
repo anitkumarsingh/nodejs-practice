@@ -1,22 +1,19 @@
 const express = require('express');
-const messageController = require('./controller/message.controller');
-const friendsController = require('./controller/friends.controller');
+const messageRouter = require('./router/message.router');
+const friendsRouter = require('./router/friends.router');
 const logger = require('./middleware/logger');
 
 const PORT = process.env.PORT || 4000;
 
-
-
 const app = express();
+
+// middleware
 app.use(express.json());
+app.use(logger);
 
-app.use(logger)
-
-app.get('/friends', friendsController.getAllFriends);
-app.get('/friends/:id',friendsController.getSingleFriend);
-app.post('/friends', friendsController.addFriend);
-
-app.get('/message',messageController.getMessage);
+// Routers
+app.use('/friends',friendsRouter)
+app.use('/message',messageRouter);
 
 app.listen(PORT,()=>{
   console.log(`Express server is running on ${PORT}`);
