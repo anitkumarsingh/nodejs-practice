@@ -18,6 +18,7 @@ const friends = [
 ];
 
 const app = express();
+app.use(express.json());
 
 app.use((req,res,next)=>{
   const start = Date.now();
@@ -35,6 +36,11 @@ app.get('/friends/:id', (req, res) => {
 });
 
 app.post('/friends', (req, res) => {
+  if(!req.body.name){
+    return res.status(400).json({
+      error:'Missing friend name'
+    })
+  }
 	const newFriend = {
 		id: friends.length + 1,
 		name: req.body.name
