@@ -1,6 +1,7 @@
 const friends = require('../model/friends');
 
 function getSingleFriend(req, res){
+  console.log(req.ip);
 	const findFriend = friends.find((f) => f.id === parseInt(req.params.id));
 	res.send(findFriend);
 }
