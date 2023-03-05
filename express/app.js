@@ -1,7 +1,10 @@
 const express = require('express');
 const messageRouter = require('./router/message.router');
 const friendsRouter = require('./router/friends.router');
+const assetsRouter = require('./router/assets.router');
+
 const logger = require('./middleware/logger');
+
 
 const PORT = process.env.PORT || 4000;
 
@@ -14,6 +17,7 @@ app.use(logger);
 // Routers
 app.use('/friends',friendsRouter)
 app.use('/message',messageRouter);
+app.use('/assets',assetsRouter);
 
 app.listen(PORT,()=>{
   console.log(`Express server is running on ${PORT}`);

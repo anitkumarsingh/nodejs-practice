@@ -4,7 +4,8 @@ function getMessage(req, res) {
 function getUpdateMessage(req, res) {
 	res.send('Updated successfully');
 }
+
 module.exports = {
 	getMessage,
-	getUpdateMessage
+	getUpdateMessage,
 };
