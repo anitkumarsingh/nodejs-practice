@@ -13,8 +13,19 @@ const app = express();
 
 // middleware
 app.use(express.json());
+app.set('view engine','hbs');
+app.set('views',path.join(__dirname,'views'));
+
 app.use(logger);
 app.use('/site',express.static(path.join(__dirname,'public')));
+
+app.use('/',(req,res)=>{
+  res.render('index',{
+    title:'My Friend Is VERRY clever',
+    caption:'India is India is beautiful'
+  })
+})
+
 // Routers
 app.use('/friends',friendsRouter)
 app.use('/message',messageRouter);
